@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-
-const SignUp = () => {
+import { useNavigate } from "react-router-dom";
+const SignUp = (props) => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
+    const [toggle, setToggle] = useState(false)
     const onChangeName = (e) => {
         setName(e.target.value)
         // console.log(e);
@@ -29,6 +31,16 @@ const SignUp = () => {
         });
         const json = await response.json();
         console.log(json);
+        if (json.success) {
+            localStorage.setItem("token", json.token)
+            console.log(json.token)
+            // alert(json.token)
+            navigate('/')
+            props.showAlert("success", "Your Account has been successfully created!")
+        }
+        else {
+            props.showAlert("danger", `Please enter your details properly!`)
+        }
     }
     return (
         <div>
@@ -46,7 +58,15 @@ const SignUp = () => {
                     </div>
                     <div className="form-group my-2">
                         <label htmlFor="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={onChangePassword} />
+                        <input type={toggle ? "text" : "password"} className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={onChangePassword} />
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={() => {
+                            setToggle(toggle ^ true ^ false);
+                        }} />
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                            Show Password
+                        </label>
                     </div>
 
                     <button type="submit" className="btn btn-primary my-2">Submit</button>

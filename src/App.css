@@ -11,3 +11,17 @@
 .ni-button:hover{
     color: blueviolet;    
 }
+.navbarfixed{
+    position: fixed;
+    width:100%;
+    margin-bottom: 50px ;
+}
+.alertBar{
+    position: relative;
+    width:100%;
+    top: 50px;
+    height:50px;
+}
+.fullPage{
+    margin-top:60px;
+}

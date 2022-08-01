@@ -14,10 +14,14 @@ const NoteItem = (props) => {
                 <div className="card-body" >
                     <h5 className="card-title">{note.title}</h5>
                     <p className="card-text">{note.description}</p>
-                    <span className="ni-button" ><EditIcon color="dark" onClick={() => {
-                        updateNote(note);
+                    <span className="ni-button" ><EditIcon color="dark" onClick={async () => {
+                        await updateNote(note);
+                        // props.showAlert("success", "Note Updated Successfully...")
                     }} /> </span>
-                    <span className="ni-button ni-delete" onClick={() => { deleteNote(note._id) }}>
+                    <span className="ni-button ni-delete" onClick={() => {
+                        deleteNote(note._id);
+                        props.showAlert("success", "Note Deleted Successfully...")
+                    }}>
                         <DeleteIcon color='dark' />
                     </span>
 

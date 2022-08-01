@@ -2,38 +2,45 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import NoteContext from '../context/notes/NoteContext'
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
-
-const Notes = () => {
+import { useNavigate } from "react-router-dom"
+const Notes = (props) => {
     const [note, setNote] = useState({ title: "", description: "", tag: "" })
     const context = useContext(NoteContext)
     const { notes, getAllNotes, editNote } = context;
     const ref = useRef(null);
     const refClose = useRef(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
-        getAllNotes();
+        if (localStorage.getItem('token'))
+            getAllNotes();
+        else {
+            navigate('/login');
+        }
         // eslint-disable-next-line
     }, [])
 
     const updateNote = (getnote) => {
         ref.current.click();
         setNote(getnote);
+
     }
 
     const handleClick = (e) => {
         // e.preventDefault();   
         editNote(note._id, note.title, note.description, note.tag);
         refClose.current.click();
+        props.showAlert("success", "Note Updated Successfully...")
     }
 
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
         // console.log(note);
+        // props.showAlert("success", "Note Updated Successfully...")
     }
 
     return (
         <div>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
             </button>
@@ -73,7 +80,7 @@ const Notes = () => {
             <h2>Your Notes</h2>
             <div className=' row'>
                 {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                    return <NoteItem showAlert={props.showAlert} key={note._id} updateNote={updateNote} note={note} />
                 })}
             </div>
         </div>

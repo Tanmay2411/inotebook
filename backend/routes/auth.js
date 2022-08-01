@@ -14,14 +14,15 @@ router.post('/createUser', [
     body('name').isLength({ min: 3 })
 ],
     async (req, res) => {
+        let success = false;
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ success, error: errors.array() });
         }
         try {
             let user = await User.findOne({ email: req.body.email });
             if (user) {
-                return res.status(400).json({ error: "This email is already registered." })
+                return res.status(400).json({ success, error: "This email is already registered." })
             }
             else {
                 const salt = await bcrypt.genSalt(10);
@@ -39,11 +40,12 @@ router.post('/createUser', [
                 }
                 const token = jwt.sign(Data, JWT_SECRET);
                 console.log(token);
-                res.json({ token });
+                success = true;
+                res.json({ success, token });
             }
         } catch (error) {
             console.log(error);
-            res.status(500).send("Some Error Occured");
+            res.status(500).json({ success, error: "Some Error Occured" });
         }
 
     })
@@ -81,19 +83,21 @@ router.post('/login', [
 
     } catch (error) {
         console.log(error);
-        res.status(500).send("Some Error Occured");
+        res.status(500).json({ success, message: "Some error Occured" });
     }
 })
 // Route to get user details
 router.post('/getuser', fetchUser,
     async (req, res) => {
+        let success = false;
         try {
             const userId = req.user.id;
             const userData = await User.findById(userId).select("-password");
+            success = true;
             res.json(userData)
         } catch (error) {
             console.log(error);
-            res.status(500).send("Some Error Occured");
+            res.status(500).json({ success, message: "Some error Occured" });
         }
     }
 )
