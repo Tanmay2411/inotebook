@@ -14,7 +14,7 @@ const Notes = (props) => {
         if (localStorage.getItem('token'))
             getAllNotes();
         else {
-            navigate('/login');
+            navigate('/home');
         }
         // eslint-disable-next-line
     }, [])
@@ -22,7 +22,6 @@ const Notes = (props) => {
     const updateNote = (getnote) => {
         ref.current.click();
         setNote(getnote);
-
     }
 
     const handleClick = (e) => {
@@ -71,18 +70,21 @@ const Notes = (props) => {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" ref={refClose} data-bs-dismiss="modal">Close</button>
                             <button type="button" onClick={handleClick} className="btn btn-primary">Edit changes</button>
                         </div>
                     </div>
                 </div>
             </div>
             <h2>Your Notes</h2>
+
             <div className=' row'>
+
                 {notes.map((note) => {
                     return <NoteItem showAlert={props.showAlert} key={note._id} updateNote={updateNote} note={note} />
                 })}
             </div>
+
         </div>
     )
 }

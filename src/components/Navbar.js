@@ -9,13 +9,14 @@ const Navbar = () => {
     let location = useLocation();
     useEffect(() => {
     }, [location])
+
     let onClick = () => {
         localStorage.setItem("token", "")
         navigate('/home')
     }
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-light navbarfixed">
+            <nav className="navbar navbar-expand-lg  navbarfixed">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand" >iNotebook</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +27,10 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
-                            </li>
+                            {!localStorage.getItem('token') && <>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
+                                </li></>}
                         </ul>
 
                         <form className="d-flex" role="search">
@@ -39,7 +41,7 @@ const Navbar = () => {
                             }
                             {localStorage.getItem("token") && <>
 
-                                <Link to="/login" className="btn btn-primary btn-sm" onClick={onClick} role="button" aria-disabled="true">Logout</Link>
+                                <Link to="/home" className="btn btn-primary btn-sm" onClick={onClick} role="button" aria-disabled="true">Logout</Link>
                             </>
                             }
                         </form>
@@ -47,6 +49,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
+            {/* <hr /> */}
         </div>
     )
 }

@@ -35,23 +35,34 @@ const Login = (props) => {
         }
 
     }
+    const onClick = () => {
+        navigate('/signup')
+    }
     return (
         <div className='container my-4'>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={onChangeEmail} />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <input type="email" className="input1 form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={onChangeEmail} />
+
                 </div>
                 <div className="form-group my-2">
                     <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={onChangePassword} />
+                    <input type="password" className="input1 form-control" id="exampleInputPassword1" placeholder="Password" onChange={onChangePassword} />
                 </div>
 
-                <button type="submit" className="btn btn-primary my-2">Submit</button>
+                <button type="submit" className="btn btn-primary my-2">Login</button>
             </form>
-        </div>
+            Don't have an account? <button className='input1' onClick={onClick} style={{
+                "textDecoration": "underline",
+                "fontWeight": "500",
+                "backgroundColor": "white",
+                "border": "none",
+                "paddingLeft": "0px",
+                "color": "#475596"
+            }}>Sign Up here ;)</button>
+        </div >
     )
 }
 

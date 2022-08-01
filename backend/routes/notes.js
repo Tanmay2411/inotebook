@@ -14,7 +14,7 @@ router.get('/fetchallnotes', fetchUser, async (req, res) => {
         res.status(500).send("Some Error Occured");
     }
 })
-//Router 2
+//Router 2 to add node
 router.post('/addnote', fetchUser, [
     body('title').isLength({ min: 3 }),
     body('description').isLength({ min: 5 })
@@ -38,7 +38,7 @@ router.post('/addnote', fetchUser, [
         res.status(500).send("Some Error Occured");
     }
 })
-// Router 3
+// Router 3 update note
 router.put('/updatenote/:id', fetchUser, async (req, res) => {
     try {
         const { title, description, tag } = req.body;
@@ -60,7 +60,6 @@ router.put('/updatenote/:id', fetchUser, async (req, res) => {
         console.log(error);
         res.status(500).send("Some Error Occured");
     }
-
 })
 // Router 4: To delete a Note
 router.delete('/deletenote/:id', fetchUser, async (req, res) => {

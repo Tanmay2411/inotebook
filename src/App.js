@@ -12,8 +12,7 @@ import SignUp from './components/SignUp';
 import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
 import { useState } from 'react';
-
-
+import Footer from './components/Footer';
 function App() {
     const [alert, setAlert] = useState(null);
     const showAlert = (typ, msg) => {
@@ -31,11 +30,11 @@ function App() {
             <NoteState>
                 <Router>
                     <Navbar />
+                    {/* <hr></hr> */}
                     <Alert alert={alert} />
                     <div className='container fullPage'>
                         <Routes>
                             <Route exact path="/about" element={<About />} />
-
                             <Route exact path="/" element={<Home showAlert={showAlert} />} />
                             <Route exact path="/home" element={<Home showAlert={showAlert} />} />
                             <Route exact path="/login" element={<Login showAlert={showAlert} />} />
@@ -43,6 +42,11 @@ function App() {
                         </Routes>
                     </div>
                 </Router>
+                {/* {!localStorage.getItem('token' && } */}
+                {!localStorage.getItem("token") && <>
+                    <Footer />
+                </>
+                }
             </NoteState>
         </div>
     );

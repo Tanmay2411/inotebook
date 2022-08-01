@@ -39,7 +39,7 @@ router.post('/createUser', [
                     }
                 }
                 const token = jwt.sign(Data, JWT_SECRET);
-                console.log(token);
+
                 success = true;
                 res.json({ success, token });
             }

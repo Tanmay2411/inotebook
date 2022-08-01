@@ -3,7 +3,8 @@ import React from 'react'
 function Alert(props) {
     return (
         <div style={{
-            height: "50px"
+            height: "50px",
+            // "transition": "2s"
         }}>
             {
                 props.alert &&

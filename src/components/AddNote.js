@@ -21,16 +21,16 @@ const AddNote = (props) => {
             <form className='my-3'>
                 <div className="form-group">
                     <label htmlFor="title">Enter Title</label>
-                    <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" placeholder="Enter title" onChange={onChange} value={note.title} />
+                    <input type="text" className="input1 form-control" id="title" name="title" aria-describedby="emailHelp" placeholder="Enter title" onChange={onChange} value={note.title} />
 
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Enter Description</label>
-                    <input type="text" className="form-control" id="description" name="description" placeholder="Description" onChange={onChange} value={note.description} />
+                    <input type="text" className="input1 form-control" id="description" name="description" placeholder="Description" onChange={onChange} value={note.description} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="tag">Enter tags</label>
-                    <input type="text" className="form-control" id="tag" name="tag" placeholder="Tag" onChange={onChange} value={note.tag} />
+                    <input type="text" className="input1 form-control" id="tag" name="tag" placeholder="Tag" onChange={onChange} value={note.tag} />
                 </div>
                 <button className="btn btn-primary my-3" onClick={handleClick}>Add note</button>
             </form></div>
